@@ -1,0 +1,138 @@
+# Sistema para Escuelas
+
+class Alumno:
+    def __init__(self, nombre, curso):
+        self.nombre = nombre
+        self.curso = curso
+
+
+class Profesor:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.horarios = []
+
+    def agregar_horario(self, horario):
+        self.horarios.append(horario)
+
+    def mostrar_horario(self):
+        print(f"\nHorario del profesor {self.nombre}")
+        for h in self.horarios:
+            print(
+                f"{h.dia}: {h.hora_desde} - {h.hora_hasta} | Curso: {h.curso.nombre}"
+            )
+
+
+class Curso:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.alumnos = []
+        self.profesores = []
+        self.horarios = []
+
+    def agregar_alumno(self, alumno):
+        self.alumnos.append(alumno)
+
+    def agregar_profesor(self, profesor):
+        self.profesores.append(profesor)
+
+    def agregar_horario(self, horario):
+        self.horarios.append(horario)
+
+    def mostrar_alumnos(self):
+        print(f"\nAlumnos del curso {self.nombre}")
+        for alumno in self.alumnos:
+            print(alumno.nombre)
+
+    def mostrar_horario(self):
+        print(f"\nHorario del curso {self.nombre}")
+        for h in self.horarios:
+            print(
+                f"{h.dia}: {h.hora_desde} - {h.hora_hasta} | Profesor: {h.profesor.nombre}"
+            )
+
+
+class Horario:
+    def __init__(self, curso, profesor, dia, hora_desde, hora_hasta):
+        self.curso = curso
+        self.profesor = profesor
+        self.dia = dia
+        self.hora_desde = hora_desde
+        self.hora_hasta = hora_hasta
+
+
+class Escuela:
+    def __init__(self):
+        self.alumnos = []
+        self.profesores = []
+        self.cursos = []
+
+    def agregar_alumno(self, alumno):
+        self.alumnos.append(alumno)
+
+    def agregar_profesor(self, profesor):
+        self.profesores.append(profesor)
+
+    def agregar_curso(self, curso):
+        self.cursos.append(curso)
+
+
+# ==========================
+# Ejemplo de uso
+# ==========================
+
+escuela = Escuela()
+
+# Cursos
+matematicas = Curso("Matemáticas")
+programacion = Curso("Programación")
+
+escuela.agregar_curso(matematicas)
+escuela.agregar_curso(programacion)
+
+# Profesores
+juan = Profesor("Juan Pérez")
+maria = Profesor("María Gómez")
+
+escuela.agregar_profesor(juan)
+escuela.agregar_profesor(maria)
+
+# Asociar profesores a cursos
+matematicas.agregar_profesor(juan)
+matematicas.agregar_profesor(maria)
+
+programacion.agregar_profesor(maria)
+
+# Alumnos
+ana = Alumno("Ana", matematicas)
+carlos = Alumno("Carlos", matematicas)
+laura = Alumno("Laura", programacion)
+
+matematicas.agregar_alumno(ana)
+matematicas.agregar_alumno(carlos)
+programacion.agregar_alumno(laura)
+
+escuela.agregar_alumno(ana)
+escuela.agregar_alumno(carlos)
+escuela.agregar_alumno(laura)
+
+# Horarios
+h1 = Horario(matematicas, juan, "Lunes", "08:00", "10:00")
+h2 = Horario(matematicas, maria, "Miércoles", "10:00", "12:00")
+h3 = Horario(programacion, maria, "Viernes", "14:00", "16:00")
+
+matematicas.agregar_horario(h1)
+matematicas.agregar_horario(h2)
+programacion.agregar_horario(h3)
+
+juan.agregar_horario(h1)
+maria.agregar_horario(h2)
+maria.agregar_horario(h3)
+
+# Exportaciones solicitadas
+matematicas.mostrar_alumnos()
+
+juan.mostrar_horario()
+maria.mostrar_horario()
+
+matematicas.mostrar_horario()
+programacion.mostrar_horario()
